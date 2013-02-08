@@ -1,7 +1,14 @@
 import logging
-from flask import Flask, current_app
+
+skip_flask = False
+
+try:
+    from flask import Flask, current_app
+    from raven.contrib.flask import Sentry
+except ImportError:
+    skip_flask = True
+
 from raven.base import Client
-from raven.contrib.flask import Sentry
 
 try:
     from unittest2 import TestCase
@@ -47,6 +54,7 @@ def create_app():
     return app
 
 
+@skipIf(skip_flask, "Flask not installed")
 class FlaskTest(TestCase):
     def setUp(self):
         self.app = create_app()
