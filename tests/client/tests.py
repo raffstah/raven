@@ -239,7 +239,7 @@ class ClientTest(TestCase):
         try:
             with cm:
                 raise ValueError('foo')
-        except:
+        except ValueError:
             pass
         else:
             self.fail('Exception should have been raised')
