@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import uuid
 
 try:
@@ -58,7 +60,7 @@ class TransformTest(TestCase):
     #     self.assertEquals(result, '(Error decoding value)')
 
     def test_dict_keys(self):
-        x = {u'foo': 'bar'}
+        x = {'foo': 'bar'}
 
         result = transform(x)
         self.assertEquals(type(result), dict)
@@ -78,7 +80,7 @@ class TransformTest(TestCase):
         self.assertEquals(keys[0], 'רונית מגן')
 
     def test_dict_keys_utf8_as_unicode(self):
-        x = {u'רונית מגן': 'bar'}
+        x = {'רונית מגן': 'bar'}
 
         result = transform(x)
         keys = result.keys()
@@ -117,7 +119,7 @@ class TransformTest(TestCase):
         x = Foo()
 
         result = transform(x)
-        self.assertEquals(result, u"<class 'tests.utils.encoding.tests.Foo'>")
+        self.assertEquals(result, "<class 'tests.utils.encoding.tests.Foo'>")
 
     def test_recursion_max_depth(self):
         x = [[[[1]]]]

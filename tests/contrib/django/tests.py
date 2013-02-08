@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 from __future__ import with_statement
+from __future__ import unicode_literals
 
 import datetime
 import django
@@ -139,9 +140,9 @@ class DjangoClientTest(TestCase):
         self.assertTrue('sentry.interfaces.Exception' in event)
         exc = event['sentry.interfaces.Exception']
         self.assertEquals(exc['type'], 'ValueError')
-        self.assertEquals(exc['value'], u"invalid literal for int() with base 10: 'hello'")
+        self.assertEquals(exc['value'], "invalid literal for int() with base 10: 'hello'")
         self.assertEquals(event['level'], logging.ERROR)
-        self.assertEquals(event['message'], u"ValueError: invalid literal for int() with base 10: 'hello'")
+        self.assertEquals(event['message'], "ValueError: invalid literal for int() with base 10: 'hello'")
         self.assertEquals(event['culprit'], 'tests.contrib.django.tests in test_signal_integration')
 
     def test_view_exception(self):
@@ -339,7 +340,7 @@ class DjangoClientTest(TestCase):
 
             self.assertTrue('sentry.interfaces.Http' in event)
             http = event['sentry.interfaces.Http']
-            self.assertEquals(http['url'], u'http://testserver/non-existant-page')
+            self.assertEquals(http['url'], 'http://testserver/non-existant-page')
             self.assertEquals(http['method'], 'GET')
             self.assertEquals(http['query_string'], '')
             self.assertEquals(http['data'], None)
@@ -433,7 +434,7 @@ class DjangoClientTest(TestCase):
 
         tags = event['tags']
         assert 'site' in event['tags']
-        assert tags['site'] == u'example.com'
+        assert tags['site'] == 'example.com'
 
     def test_adds_site_to_tags_fallback(self):
         with Settings(SITE_ID=12345):  # nonexistant site, should fallback to SITE_ID
@@ -664,13 +665,13 @@ class PromiseSerializerTestCase(TestCase):
         from django.utils.functional import lazy
 
         def fake_gettext(to_translate):
-            return u'Igpay Atinlay'
+            return 'Igpay Atinlay'
 
         fake_gettext_lazy = lazy(fake_gettext, str)
 
         result = transform(fake_gettext_lazy("something"))
         self.assertTrue(isinstance(result, basestring))
-        self.assertEquals(result, u'Igpay Atinlay')
+        self.assertEquals(result, 'Igpay Atinlay')
 
 
 class QuerySetSerializerTestCase(TestCase):
@@ -679,7 +680,7 @@ class QuerySetSerializerTestCase(TestCase):
 
         result = transform(instance)
         self.assertTrue(isinstance(result, basestring))
-        self.assertEquals(result, u'<TestModel: TestModel object>')
+        self.assertEquals(result, '<TestModel: TestModel object>')
 
     def test_basic(self):
         from django.db.models.query import QuerySet
@@ -687,7 +688,7 @@ class QuerySetSerializerTestCase(TestCase):
 
         result = transform(obj)
         self.assertTrue(isinstance(result, basestring))
-        self.assertEquals(result, u'<QuerySet: model=TestModel>')
+        self.assertEquals(result, '<QuerySet: model=TestModel>')
 
 
 class SentryExceptionHandlerTest(TestCase):

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 try:
     from unittest2 import TestCase
 except ImportError:
@@ -84,7 +86,7 @@ class TransportTest(TestCase):
         expected = {
             'project': '1',
             'sentry.interfaces.Message': {'message': 'foo', 'params': ()},
-            'server_name': u'test_server',
+            'server_name': 'test_server',
             'level': 40,
             'checksum': 'acbd18db4cc2f85cedef654fccc4a4d8',
             'modules': {},
