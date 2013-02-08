@@ -483,7 +483,7 @@ class Client(object):
 
         try:
             self._send_remote(url=url, data=data, headers=headers)
-        except Exception, e:
+        except Exception as e:
             if isinstance(e, urllib2.HTTPError):
                 body = e.read()
                 self.error_logger.error('Unable to reach Sentry log server: %s (url: %%s, body: %%s)' % (e,), url, body,
