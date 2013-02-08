@@ -2,7 +2,14 @@ import logging
 from flask import Flask, current_app
 from raven.base import Client
 from raven.contrib.flask import Sentry
-from unittest2 import TestCase
+
+try:
+    from unittest2 import TestCase
+    from unittest2 import skipIf
+except ImportError:
+    from unittest import TestCase
+    from unittest import skipIf
+
 from mock import patch
 
 

@@ -3,7 +3,10 @@ import pytest
 import random
 import shutil
 import tempfile
-import unittest2
+try:
+    from unittest2 import TestCase
+except:
+    from unittest import TestCase
 
 from raven.base import Client
 from raven.contrib.zerorpc import SentryMiddleware
@@ -24,7 +27,7 @@ class TempStoreClient(Client):
         self.events.append(kwargs)
 
 
-class ZeroRPCTest(unittest2.TestCase):
+class ZeroRPCTest(TestCase):
     def setUp(self):
         self._socket_dir = tempfile.mkdtemp(prefix='ravenzerorpcunittest')
         self._server_endpoint = 'ipc://{0}'.format(os.path.join(
@@ -46,7 +49,7 @@ class ZeroRPCTest(unittest2.TestCase):
 
         try:
             self._client.choice([])
-        except zerorpc.exceptions.RemoteError, ex:
+        except zerorpc.exceptions.RemoteError as ex:
             self.assertEqual(ex.name, 'IndexError')
             self.assertEqual(len(self._sentry.events), 1)
             exc = self._sentry.events[0]['sentry.interfaces.Exception']

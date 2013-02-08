@@ -10,7 +10,8 @@ import mock
 import re
 from exam import fixture
 from celery.tests.utils import with_eager_tasks
-from StringIO import StringIO
+
+from six import StringIO
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
