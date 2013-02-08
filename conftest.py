@@ -11,7 +11,7 @@ INSTALLED_APPS=[
     'django.contrib.contenttypes',
 
     'raven.contrib.django',
-],
+]
 
 
 use_djcelery = True
