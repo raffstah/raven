@@ -6,6 +6,7 @@ raven.utils.serializer.manager
 :license: BSD, see LICENSE for more details.
 """
 import logging
+import six
 
 __all__ = ('register', 'transform')
 
@@ -61,7 +62,7 @@ class Serializer(object):
                         return serializer.serialize(value, **kwargs)
                     except Exception as e:
                         logger.exception(e)
-                        return unicode(type(value))
+                        return six.text_type(type(value))
 
             # if all else fails, lets use the repr of the object
             try:

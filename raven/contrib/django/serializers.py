@@ -8,6 +8,7 @@ raven.contrib.django.serializers
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import six
 from django.conf import settings
 from django.http import HttpRequest
 from django.utils.functional import Promise
@@ -38,7 +39,7 @@ class PromiseSerializer(Serializer):
         if hasattr(value, '%s__func' % pre):
             value = getattr(value, '%s__func' % pre)(*getattr(value, '%s__args' % pre), **getattr(value, '%s__kw' % pre))
         else:
-            return unicode(value)
+            return six.text_type(value)
         return self.recurse(value, **kwargs)
 
 register(PromiseSerializer)

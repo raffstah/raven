@@ -53,7 +53,7 @@ class Serializer(object):
                 value = repr(value)
             except Exception as e:
                 self.manager.logger.exception(e)
-                return unicode(type(value))
+                return six.text_type(type(value))
         return self.manager.transform(value, max_depth=max_depth, _depth=_depth, **kwargs)
 
 
