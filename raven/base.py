@@ -17,6 +17,7 @@ import sys
 import time
 import uuid
 import warnings
+import six
 
 try:
     from urllib2 import HTTPError
@@ -166,7 +167,7 @@ class Client(object):
 
         self.include_paths = set(o.get('include_paths') or [])
         self.exclude_paths = set(o.get('exclude_paths') or [])
-        self.name = unicode(o.get('name') or defaults.NAME)
+        self.name = six.text_type(o.get('name') or defaults.NAME)
         self.auto_log_stacks = bool(o.get('auto_log_stacks') or
                 defaults.AUTO_LOG_STACKS)
         self.string_max_length = int(o.get('string_max_length') or
