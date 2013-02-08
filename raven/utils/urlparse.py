@@ -1,6 +1,10 @@
 from __future__ import absolute_import
-import urlparse as _urlparse
 
+try:
+    import urlparse as _urlparse
+except ImportError:
+    from urllib import parse as _urlparse
+ 
 
 def register_scheme(scheme):
     for method in filter(lambda s: s.startswith('uses_'), dir(_urlparse)):
