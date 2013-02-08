@@ -2,7 +2,10 @@ from __future__ import with_statement
 import logging
 import mock
 from raven.conf import load, setup_logging
-from unittest2 import TestCase
+try:
+    from unittest2 import TestCase
+except ImportError:
+    from unittest import TestCase
 
 
 class LoadTest(TestCase):

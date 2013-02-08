@@ -5,9 +5,12 @@ import mock
 import raven
 import time
 from socket import socket, AF_INET, SOCK_DGRAM
-from unittest2 import TestCase
 from raven.base import Client, ClientState
 from raven.utils.stacks import iter_stack_frames
+try:
+    from unittest2 import TestCase
+except ImportError:
+    from unittest import TestCase
 
 
 class TempStoreClient(Client):

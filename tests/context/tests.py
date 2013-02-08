@@ -1,7 +1,10 @@
 import mock
 import sys
 from exam import fixture
-from unittest2 import TestCase
+try:
+    from unittest2 import TestCase
+except ImportError:
+    from unittest import TestCase
 
 from raven.context import Context
 

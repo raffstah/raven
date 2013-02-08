@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import mock
-from unittest2 import TestCase
 from celery.tests.utils import with_eager_tasks
 from raven.contrib.celery import CeleryClient
+try:
+    from unittest2 import TestCase
+except ImportError:
+    from unittest import TestCase
 
 
 class ClientTest(TestCase):

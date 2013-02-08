@@ -8,7 +8,10 @@ raven.transport.builtins
 
 import logging
 import sys
-import urllib2
+try:
+    from urllib2 import Request, urlopen
+except ImportError:
+    from urllib.request import Request, urlopen
 
 try:
     # Google App Engine blacklists parts of the socket module, this will prevent
@@ -163,12 +166,12 @@ class HTTPTransport(Transport):
         """
         Sends a request to a remote webserver using HTTP POST.
         """
-        req = urllib2.Request(self._url, headers=headers)
+        req = Request(self._url, headers=headers)
 
         if sys.version_info < (2, 6):
-            response = urllib2.urlopen(req, data).read()
+            response = urlopen(req, data).read()
         else:
-            response = urllib2.urlopen(req, data, self.timeout).read()
+            response = urlopen(req, data, self.timeout).read()
         return response
 
     def compute_scope(self, url, scope):
