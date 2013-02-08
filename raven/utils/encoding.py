@@ -85,7 +85,7 @@ def shorten(var, list_length=50, string_length=200):
     from raven.utils.serializer import transform
 
     var = transform(var)
-    if isinstance(var, basestring) and len(var) > string_length:
+    if isinstance(var, six.string_types) and len(var) > string_length:
         var = var[:string_length] + '...'
     elif isinstance(var, (list, tuple, set, frozenset)) and len(var) > list_length:
         # TODO: we should write a real API for storing some metadata with vars when

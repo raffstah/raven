@@ -7,6 +7,7 @@ raven.contrib.django.views
 """
 from __future__ import absolute_import
 
+import six
 from functools import wraps
 
 from django.conf import settings
@@ -31,7 +32,7 @@ def is_valid_origin(origin):
 
     origin = origin.lower()
     for value in settings.SENTRY_ALLOW_ORIGIN:
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             if value.lower() == origin:
                 return True
         else:
