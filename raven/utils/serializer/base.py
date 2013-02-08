@@ -77,8 +77,11 @@ class DictSerializer(Serializer):
 
     def serialize(self, value, **kwargs):
         list_max_length = kwargs.get('list_max_length') or float('inf')
+        key_func = to_string
+        if six.PY3:
+            key_func = to_unicode
         return dict(
-            (to_string(k), self.recurse(v, **kwargs))
+            (key_func(k), self.recurse(v, **kwargs))
             for n, (k, v) in itertools.takewhile(lambda x: x[0] < list_max_length, enumerate(six.iteritems(value)))
         )
 
