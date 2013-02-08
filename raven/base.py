@@ -15,9 +15,13 @@ import logging
 import os
 import sys
 import time
-import urllib2
 import uuid
 import warnings
+
+try:
+    from urllib2 import HTTPError
+except ImportError:
+    from urllib.error import HTTPError
 
 import raven
 from raven.conf import defaults
