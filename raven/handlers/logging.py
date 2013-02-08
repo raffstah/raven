@@ -8,6 +8,7 @@ raven.handlers.logging
 
 from __future__ import absolute_import
 
+import six
 import datetime
 import logging
 import sys
@@ -67,7 +68,7 @@ class SentryHandler(logging.Handler, object):
     def _emit(self, record, **kwargs):
         data = {}
 
-        for k, v in record.__dict__.iteritems():
+        for k, v in six.iteritems(record.__dict__):
             if '.' not in k and k not in ('culprit',):
                 continue
             data[k] = v

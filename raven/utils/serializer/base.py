@@ -79,7 +79,7 @@ class DictSerializer(Serializer):
         list_max_length = kwargs.get('list_max_length') or float('inf')
         return dict(
             (to_string(k), self.recurse(v, **kwargs))
-            for n, (k, v) in itertools.takewhile(lambda x: x[0] < list_max_length, enumerate(value.iteritems()))
+            for n, (k, v) in itertools.takewhile(lambda x: x[0] < list_max_length, enumerate(six.iteritems(value)))
         )
 
 

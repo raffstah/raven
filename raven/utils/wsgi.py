@@ -5,6 +5,7 @@ This module implements WSGI related helpers adapted from ``werkzeug.wsgi``
 :license: BSD, see LICENSE for more details.
 """
 
+import six
 import urllib
 
 
@@ -13,7 +14,7 @@ def get_headers(environ):
     """
     Returns only proper HTTP headers.
     """
-    for key, value in environ.iteritems():
+    for key, value in six.iteritems(environ):
         key = str(key)
         if key.startswith('HTTP_') and key not in \
            ('HTTP_CONTENT_TYPE', 'HTTP_CONTENT_LENGTH'):

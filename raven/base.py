@@ -272,7 +272,7 @@ class Client(object):
         if data.get('culprit'):
             culprit = data['culprit']
 
-        for k, v in result.iteritems():
+        for k, v in six.iteritems(result):
             if k not in data:
                 data[k] = v
 
@@ -327,10 +327,10 @@ class Client(object):
 
         # Add extra context
         if self.extra:
-            for k, v in self.extra.iteritems():
+            for k, v in six.iteritems(self.extra):
                 data['extra'].setdefault(k, v)
 
-        for k, v in extra.iteritems():
+        for k, v in six.iteritems(extra):
             data['extra'][k] = v
 
         if culprit:

@@ -1,3 +1,4 @@
+import six
 import logging
 import sys
 try:
@@ -29,7 +30,7 @@ class LoggingIntegrationTest(TestCase):
     def make_record(self, msg, args=(), level=logging.INFO, extra=None, exc_info=None):
         record = logging.LogRecord('root', level, __file__, 27, msg, args, exc_info, 'make_record')
         if extra:
-            for key, value in extra.iteritems():
+            for key, value in six.iteritems(extra):
                 record.__dict__[key] = value
         return record
 
