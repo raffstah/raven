@@ -6,6 +6,7 @@ raven.utils.encoding
 :license: BSD, see LICENSE for more details.
 """
 
+import six
 import warnings
 
 
@@ -62,7 +63,7 @@ def transform(value):
 
 def to_unicode(value):
     try:
-        value = unicode(force_unicode(value))
+        value = six.text_type(force_unicode(value))
     except (UnicodeEncodeError, UnicodeDecodeError):
         value = '(Error decoding value)'
     except Exception:  # in some cases we get a different exception
@@ -75,7 +76,7 @@ def to_unicode(value):
 
 def to_string(value):
     try:
-        return str(value.decode('utf-8').encode('utf-8'))
+        return six.binary_type(value.decode('utf-8').encode('utf-8'))
     except:
         return to_unicode(value).encode('utf-8')
 
