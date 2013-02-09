@@ -16,6 +16,9 @@ import sys
 
 logger = logging.getLogger('raven.errors')
 
+if six.PY3:
+    xrange = range
+
 
 def varmap(func, var, context=None, name=None):
     """
