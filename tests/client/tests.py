@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
+import six
 import inspect
 import mock
 import raven
@@ -112,7 +114,7 @@ class ClientTest(TestCase):
         })
         send_remote.assert_called_once_with(
             url='http://example.com',
-            data='eJyrVkrLz1eyUlBKSixSqgUAIJgEVA==',
+            data=six.b('eJyrVkrLz1eyUlBKSixSqgUAIJgEVA=='),
             headers={
                 'User-Agent': 'raven-python/%s' % (raven.VERSION,),
                 'Content-Type': 'application/octet-stream',
@@ -137,7 +139,7 @@ class ClientTest(TestCase):
         })
         send_remote.assert_called_once_with(
             url='http://example.com',
-            data='eJyrVkrLz1eyUlBKSixSqgUAIJgEVA==',
+            data=six.b('eJyrVkrLz1eyUlBKSixSqgUAIJgEVA=='),
             headers={
                 'User-Agent': 'raven-python/%s' % (raven.VERSION,),
                 'Content-Type': 'application/octet-stream',
