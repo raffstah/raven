@@ -10,9 +10,9 @@ from socket import socket, AF_INET, SOCK_DGRAM
 from raven.base import Client, ClientState
 from raven.utils.stacks import iter_stack_frames
 try:
-    from unittest2 import TestCase
+    from unittest2 import TestCase, skipIf
 except ImportError:
-    from unittest import TestCase
+    from unittest import TestCase, skipIf
 
 
 class TempStoreClient(Client):
@@ -336,6 +336,7 @@ class ClientTest(TestCase):
         self.assertEquals(event['extra'], {'logger': 'test', 'foo': 'bar'})
 
 
+@skipIf(six.PY3, "Skipping UDP for python3 for now")
 class ClientUDPTest(TestCase):
     def setUp(self):
         self.server_socket = socket(AF_INET, SOCK_DGRAM)
