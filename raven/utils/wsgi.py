@@ -6,7 +6,10 @@ This module implements WSGI related helpers adapted from ``werkzeug.wsgi``
 """
 
 import six
-import urllib
+try:
+    from urllib import quote as urllib_quote
+except ImportError:
+    from urllib.parse import quote as urllib_quote
 
 
 # `get_headers` comes from `werkzeug.datastructures.EnvironHeaders`
@@ -82,11 +85,11 @@ def get_current_url(environ, root_only=False, strip_querystring=False,
     cat = tmp.append
     if host_only:
         return ''.join(tmp) + '/'
-    cat(urllib.quote(environ.get('SCRIPT_NAME', '').rstrip('/')))
+    cat(urllib_quote(environ.get('SCRIPT_NAME', '').rstrip('/')))
     if root_only:
         cat('/')
     else:
-        cat(urllib.quote('/' + environ.get('PATH_INFO', '').lstrip('/')))
+        cat(urllib_quote('/' + environ.get('PATH_INFO', '').lstrip('/')))
         if not strip_querystring:
             qs = environ.get('QUERY_STRING')
             if qs:
