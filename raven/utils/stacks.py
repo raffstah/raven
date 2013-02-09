@@ -46,7 +46,7 @@ def get_lines_from_file(filename, lineno, context_lines, loader=None, module_nam
             source = source.splitlines()
     if source is None:
         try:
-            f = open(filename)
+            f = open(filename, 'rb')
             try:
                 source = f.readlines()
             finally:
@@ -60,7 +60,7 @@ def get_lines_from_file(filename, lineno, context_lines, loader=None, module_nam
     for line in source[:2]:
         # File coding may be specified. Match pattern from PEP-263
         # (http://www.python.org/dev/peps/pep-0263/)
-        match = _coding_re.search(line)
+        match = _coding_re.search(line.decode('ascii')) # let's assume ascii
         if match:
             encoding = match.group(1)
             break
