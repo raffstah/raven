@@ -112,9 +112,10 @@ class AsyncSentryClient(Client):
         if headers is None:
             headers = {}
 
-        return AsyncHTTPClient().fetch(
-            url, callback, method="POST", body=data, headers=headers
-        )
+        # ignore ssl cert
+        request = HTTPRequest(url, method="POST", body=data, headers=headers,
+                              validate_cert=False)
+        return AsyncHTTPClient().fetch(request, callback)
 
 
 class SentryMixin(object):
